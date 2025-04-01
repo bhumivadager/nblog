@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Recovery Techniques</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Database Recovery Techniques</h1>
+            <nav>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#methods">Recovery Methods</a></li>
+                    <li><a href="#tips">Tips</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section id="overview" class="section">
+        <div class="container">
+            <h2>Overview of Database Recovery</h2>
+            <p>Database recovery involves the techniques and strategies used to restore data in case of database failure. This is a critical aspect of data management as databases can be corrupted, lost, or damaged due to hardware failure, software bugs, or human errors.<br>Database recovery techniques are essential for maintaining data integrity and ensuring system reliability in the event of failures such as system crashes, disk corruption, or accidental deletions.<br> These techniques help restore databases to their previous consistent state by applying various methods tailored to different failure scenarios. Log-Based Recovery uses transaction logs to redo or undo operations, ensuring that committed transactions are retained while incomplete ones are rolled back.<br> Checkpoints periodically store the database’s current state, allowing a quick recovery by restoring the last checkpoint and applying necessary changes.<br> Shadow Paging eliminates the need for logs by maintaining two copies of data—an active and a shadow copy—ensuring a safe rollback in case of failure. <br>Other techniques like Deferred Update postpone changes until transactions commit, preventing inconsistent data storage, while Immediate Update applies changes in real time but maintains logs for rollback if required.<br> These recovery mechanisms are critical in large-scale applications like banking systems and cloud databases, ensuring data integrity and availability even under unexpected circumstances.</p>
+        </div>
+    </section>
+
+    <section id="methods" class="section">
+        <div class="container">
+            <h2>Common Database Recovery Methods</h2>
+            <ul>
+                <li>
+                    <h3>Backup and Restore</h3>
+                <b> <p>This is the most common method for database recovery. </p></b>
+                    <p>1. Deferred Update (No-Undo/Redo)
+                        Updates are not written to the database until a transaction is committed.
+                        
+                        If a failure occurs before committing, no changes need to be undone.<br>
+                        
+                        Ensures data integrity but might cause delays.
+                        
+                        2. Immediate Update (Undo/Redo)
+                        Updates are written to the database immediately, even before the transaction commits.
+                        
+                        If a failure occurs, undo is used for uncommitted changes, and redo is used for committed changes.
+                        
+                        Requires logging with Write-Ahead Logging (WAL).<br>
+                        
+                        3. Shadow Paging
+                        Uses two copies of data: the current page table and the shadow page table.
+                        
+                        When a transaction starts, a shadow copy is created.
+                        
+                        If the transaction succeeds, the shadow copy replaces the original; otherwise, the system discards the shadow copy.
+                        
+                        No need for undo/redo but can increase storage overhead.<br>
+                        
+                        4. Checkpointing
+                        Saves the current state of the database at fixed intervals.
+                        
+                        If a failure occurs, recovery starts from the last checkpoint, reducing recovery time.
+                        
+                        Helps minimize the amount of redo operations required.<br>
+                        
+                        5. Log-Based Recovery
+                        Uses a Transaction Log (Write-Ahead Logging) to keep track of all changes before applying them to the database.<br>
+                        
+                        Two types:
+                        <br>
+                        Undo Logging: Reverts uncommitted transactions.
+                        
+                        Redo Logging: Reapplies committed transactions in case of failure.<br>
+                        
+                        6. Backup and Restore
+                        Involves creating regular backups (Full, Incremental, Differential).
+                        
+                        After failure, restores the database using the latest backup.<br>
+                        
+                        7. RAID (Redundant Array of Independent Disks)
+                        Protects data against hardware failures by using disk redundancy 😊.<br>
+                        
+                        </p>
+
+    
+                </li>
+                <li>
+                    <h3>Log File Recovery</h3>
+                    <p>Transaction logs can be used to recover the database by rolling forward the changes made before the failure.</p>
+                </li>
+                <li>
+                    <h3>Point-in-Time Recovery</h3>
+                    <p>This method allows recovery of a database to a specific point in time before a failure or corruption occurred.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="tips" class="section">
+        <div class="container">
+            <h2>Best Practices & Tips</h2>
+            <ul>
+                <li>Regularly back up your database to reduce the risk of data loss.</li>
+                <li>Test your backups regularly to ensure they are working correctly.</li>
+                <li>Implement a disaster recovery plan with clear steps to follow in case of failure.</li>
+                <li>Consider using cloud storage for backups to prevent local hardware failure risks.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need assistance with database recovery, feel free to reach out to us!</p>
+            <form id="contact-form">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Database Recovery Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
